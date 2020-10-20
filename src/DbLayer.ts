@@ -1,7 +1,6 @@
 import { IDbLayer, IMigration, IMigrationService, IModelInitializerFn } from "./types";
 import { ConnectionService } from "./services/ConnectionService";
 
-
 export class DbLayer implements IDbLayer
 {
   private _db: ConnectionService;
@@ -13,19 +12,23 @@ export class DbLayer implements IDbLayer
     this._migrator = migrator;
   }
 
-  async runMigrations(): Promise<void> {
+  async runMigrations(): Promise<void>
+  {
     return await this._migrator.runMigrations();
   }
 
-  async getPendingMigrations(): Promise<IMigration[]> {
+  async getPendingMigrations(): Promise<IMigration[]>
+  {
     return await this._migrator.getPendingMigrations();
   }
 
-  async getCompletedMigrations(): Promise<IMigration[]> {
+  async getCompletedMigrations(): Promise<IMigration[]>
+  {
     return await this._migrator.getCompletedMigrations();
   }
 
-  async rollbackLastMigration(): Promise<void> {
+  async rollbackLastMigration(): Promise<void>
+  {
     await this._migrator.rollbackLastMigration();
   }
 
@@ -39,11 +42,13 @@ export class DbLayer implements IDbLayer
     this._db = instance;
   }
 
-  async authenticate(): Promise<void> {
+  async authenticate(): Promise<void>
+  {
     await this._db.authenticate();
   }
 
-  async testConnection(db: ConnectionService): Promise<boolean> {
+  async testConnection(db: ConnectionService): Promise<boolean>
+  {
     try {
       await db.authenticate();
       return true;

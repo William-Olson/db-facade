@@ -1,13 +1,15 @@
 import { Options, Sequelize } from 'sequelize';
 import Umzug from 'umzug';
 
-export interface IDbLayerConfig {
+export interface IDbLayerConfig
+{
   dialectType: DialectTypes;
-  databaseCredentials: ICredentials;
+  databaseCredentials: IDbAuthConfig;
   migrationOptions: IMigrationConfig;
 }
 
-export enum DialectTypes {
+export enum DialectTypes
+{
   POSTGRES,
   MYSQL,
   MARIADB,
@@ -15,7 +17,8 @@ export enum DialectTypes {
   MSSQL
 }
 
-export interface ICredentials {
+export interface IDbAuthConfig
+{
   database?: string;
   username?: string;
   password?: string;
@@ -23,13 +26,15 @@ export interface ICredentials {
   port?: number;
 }
 
-export interface IMigrationConfig {
+export interface IMigrationConfig
+{
   sequelize?: Sequelize;
   migrationsPath?: string;
   migrationTableName?: string;
 }
 
-export interface IMigration {
+export interface IMigration
+{
   name: string;
 }
 

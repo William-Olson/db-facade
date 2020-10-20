@@ -3,7 +3,7 @@
 export {
     IDbLayerConfig,
     DialectTypes,
-    ICredentials,
+    IDbAuthConfig,
     IMigrationConfig,
     IMigration,
     IMigrationService,
