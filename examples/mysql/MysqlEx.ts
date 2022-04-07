@@ -1,6 +1,21 @@
-import path from 'path';
 import { Sequelize } from 'sequelize';
 import { DbLayer, DbLayerFactory, DialectTypes } from '../../src';
+
+// TypeScript Migrations Example
+// -----------------------------
+// Note:
+//       Use the `./create-migration <migration-name>` for generating a migration stub.
+//
+//       In order to use sequelize terminal commands, we added .sequelizerc values and
+//       made sure that test-migrations-ts gets transpiled and copied to dist/examples.
+//
+//       TypeScript Migrations unfortunately have to be imported individually instead of
+//       providing a path to where all migration files live.
+
+import MyTestMigration from '../test-migrations-ts/20220406201925-MyTestMigration';
+// <---- (we would add other migration file imports here)
+
+const info = (...items: any[]) => console.info('[MysqlExApp]', ...items);
 
 (async function() {
 
@@ -12,21 +27,24 @@ import { DbLayer, DbLayerFactory, DialectTypes } from '../../src';
       database: 'dev'
     },
     migrationOptions: {
-      migrationsPath: path.join(__dirname, 'test-migrations'),
-      migrationTableName: '__TestMigrations__'
+      migrations: [
+        MyTestMigration
+        // <---- (we would add more migrations entries here once imported)
+      ],
+      migrationTableName: '__Migrations__'
     }
   });
 
-  console.log('authenticating db . . .');
+  info('authenticating db . . .');
   await dbLayer.authenticate();
-  console.log('Success!');
+  info('Success!');
   
-  console.log('running migrations . . .');
+  info('running migrations . . .');
   dbLayer.runMigrations();
   
-  console.log('initializing models . . .');
+  info('initializing models . . .');
   dbLayer.initialize(async (sequelize: Sequelize) => {
-    console.log(await sequelize.databaseVersion());
+    info(await sequelize.databaseVersion());
   });
   
 }());

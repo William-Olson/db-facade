@@ -1,0 +1,12 @@
+const { resolve } = require('path');
+
+module.exports = {
+    // point to the transpiled js migration files
+    'migrations-path': resolve('dist/examples/test-migrations-ts'),
+    
+    // config: resolve('dist/examples/config.js'),
+    // 'seeders-path': resolve('dist/examples/seeders'),
+    'models-path': resolve('test-models')
+};
+
+

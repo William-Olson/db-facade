@@ -2,6 +2,8 @@ import path from 'path';
 import { Sequelize } from 'sequelize';
 import { DbLayer, DbLayerFactory, DialectTypes } from '../../src';
 
+const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
+
 (async function() {
 
   const dbLayer: DbLayer = DbLayerFactory.newDbLayer({
@@ -17,16 +19,16 @@ import { DbLayer, DbLayerFactory, DialectTypes } from '../../src';
     }
   });
 
-  console.log('authenticating db . . .');
+  info('authenticating db . . .');
   await dbLayer.authenticate();
-  console.log('Success!');
+  info('Success!');
   
-  console.log('running migrations . . .');
+  info('running migrations . . .');
   dbLayer.runMigrations();
   
-  console.log('initializing models . . .');
+  info('initializing models . . .');
   dbLayer.initialize(async (sequelize: Sequelize) => {
-    console.log(await sequelize.databaseVersion());
+    info(await sequelize.databaseVersion());
   });
   
 }());

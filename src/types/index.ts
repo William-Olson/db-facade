@@ -1,4 +1,4 @@
-import { Options, Sequelize } from 'sequelize';
+import { Options, Sequelize, QueryInterface } from 'sequelize';
 import Umzug from 'umzug';
 
 export interface IDbLayerConfig
@@ -31,11 +31,19 @@ export interface IMigrationConfig
   sequelize?: Sequelize;
   migrationsPath?: string;
   migrationTableName?: string;
+  migrations?: IMigrationDefinition[];
+  logging?: boolean;
 }
 
 export interface IMigration
 {
   name: string;
+}
+
+export interface IMigrationDefinition extends IMigration
+{
+  up: (queryInterface: QueryInterface) => Promise<any>,
+  down: (queryInterface: QueryInterface) => Promise<any>
 }
 
 export interface IMigrationService
