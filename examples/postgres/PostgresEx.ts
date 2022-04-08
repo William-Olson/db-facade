@@ -1,6 +1,7 @@
 import path from 'path';
 import { Sequelize } from 'sequelize';
 import { DbLayer, DbLayerFactory, DialectTypes } from '../../src';
+import User from '../test-models/User';
 
 const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
 
@@ -15,7 +16,7 @@ const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
     },
     migrationOptions: {
       migrationsPath: path.join(__dirname, 'test-migrations'),
-      migrationTableName: '__TestMigrations__'
+      migrationTableName: 'pg_migrations'
     }
   });
 
@@ -28,7 +29,8 @@ const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
   
   info('initializing models . . .');
   await dbLayer.initialize(async (sequelize: Sequelize) => {
-    info(await sequelize.databaseVersion());
+    User.register(sequelize);
   });
   
+  info('Database Version:', await dbLayer.getDbVersion());
 }());

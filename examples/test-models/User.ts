@@ -28,7 +28,7 @@ export default class User extends Model<UserAttributes, UserInput> implements Us
         User.init({
             id: {
                 primaryKey: true,
-                type: DataTypes.INTEGER.UNSIGNED,
+                type: DataTypes.INTEGER,
                 autoIncrement: true
             },
             firstName: {

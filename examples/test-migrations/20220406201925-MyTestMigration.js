@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('User', {
+    return queryInterface.createTable('users', {
         id: {
           primaryKey: true,
           type: DataTypes.INTEGER,
@@ -19,6 +19,13 @@ module.exports = {
           type: DataTypes.STRING,
           field: 'last_name'
         },
+        type: DataTypes.INTEGER,
+        isBetaMember: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+          allowNull: false,
+          field: 'is_beta_member'
+        },
         createdAt: {
           type: DataTypes.DATE,
           field: 'created_at'
@@ -31,16 +38,14 @@ module.exports = {
           type: DataTypes.DATE,
           field: 'deleted_at'
         },
-        type: DataTypes.INTEGER,
-        isBetaMember: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: false,
-          allowNull: false,
-          field: 'is_beta_member'
-        }
-    });
+    }, {
+      timestamps: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      deletedAt: 'deleted_at',
+  });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('User');
+    return queryInterface.dropTable('users');
   }
 }
