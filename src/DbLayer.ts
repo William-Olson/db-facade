@@ -47,6 +47,11 @@ export class DbLayer implements IDbLayer
     await this._db.authenticate();
   }
 
+  async getDbVersion(): Promise<string>
+  {
+    return await this._db.sequelize.databaseVersion();
+  }
+
   async testConnection(db: ConnectionService): Promise<boolean>
   {
     try {
