@@ -2,5 +2,8 @@ dist/
 .DS_Store
 node_modules/
 
-examples/test-*
+
+# example testing files
 examples/dist/
+examples/test-mysql
+examples/test-postgres

@@ -54,7 +54,7 @@ export interface IMigrationService
   rollbackLastMigration(): Promise<void>;
 }
 
-export type IModelInitializerFn = (sequelize: Sequelize) => void;
+export type IModelInitializerFn = (sequelize: Sequelize) => void | Promise<void>;
 export type ISequelizeFactory = (Sequelize: any) => Sequelize;
 export type IUmzugFactory = (sequelize: Sequelize) => Umzug.Umzug;
 
@@ -65,7 +65,7 @@ export interface IConnectionService
 
 export interface IDbLayer extends IConnectionService, IMigrationService
 {
-  initialize(init: IModelInitializerFn): void;
+  initialize(init: IModelInitializerFn): Promise<void>;
 }
 
 export const DEFAULT_SQLITE_OPTIONS: Options = {

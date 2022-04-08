@@ -58,8 +58,8 @@ export class DbLayer implements IDbLayer
     }
   }
 
-  initialize(init: IModelInitializerFn): void
+  async initialize(init: IModelInitializerFn): Promise<void>
   {
-    init(this._db.sequelize);
+    await init(this._db.sequelize);
   }
 }

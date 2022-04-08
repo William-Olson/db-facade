@@ -24,10 +24,10 @@ const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
   info('Success!');
   
   info('running migrations . . .');
-  dbLayer.runMigrations();
+  await dbLayer.runMigrations();
   
   info('initializing models . . .');
-  dbLayer.initialize(async (sequelize: Sequelize) => {
+  await dbLayer.initialize(async (sequelize: Sequelize) => {
     info(await sequelize.databaseVersion());
   });
   
