@@ -1,12 +1,11 @@
-import { IDbLayer, IMigration, IMigrationService, IModelInitializerFn } from "./types";
-import { ConnectionService } from "./services/ConnectionService";
+import { IConnectionService, IDbLayer, IMigration, IMigrationService, IModelInitializerFn } from "./types";
 
 export class DbLayer implements IDbLayer
 {
-  private _db: ConnectionService;
+  private _db: IConnectionService;
   private _migrator: IMigrationService;
 
-  constructor(db: ConnectionService, migrator: IMigrationService)
+  constructor(db: IConnectionService, migrator: IMigrationService)
   {
     this._db = db;
     this._migrator = migrator;
@@ -32,12 +31,12 @@ export class DbLayer implements IDbLayer
     await this._migrator.rollbackLastMigration();
   }
 
-  get connection(): ConnectionService
+  get connection(): IConnectionService
   {
     return this._db;
   }
 
-  set connection(instance: ConnectionService)
+  set connection(instance: IConnectionService)
   {
     this._db = instance;
   }
@@ -47,7 +46,7 @@ export class DbLayer implements IDbLayer
     await this._db.authenticate();
   }
 
-  async testConnection(db: ConnectionService): Promise<boolean>
+  async testConnection(db: IConnectionService): Promise<boolean>
   {
     try {
       await db.authenticate();
@@ -58,8 +57,12 @@ export class DbLayer implements IDbLayer
     }
   }
 
-  initialize(init: IModelInitializerFn): void
-  {
-    init(this._db.sequelize);
+  public getClient<T>(): T {
+    return this._db.getClient() as T;
   }
+
+  // initialize(init: IModelInitializerFn): void
+  // {
+  //   init(this._db.sequelize);
+  // }
 }

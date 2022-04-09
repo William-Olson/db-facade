@@ -1,3 +1,4 @@
+import Knex from 'knex';
 import { Options, Sequelize } from 'sequelize';
 import Umzug from 'umzug';
 
@@ -26,6 +27,8 @@ export interface IDbAuthConfig
   port?: number;
 }
 
+export type DbLayerClient = Sequelize | Knex;
+
 export interface IMigrationConfig
 {
   sequelize?: Sequelize;
@@ -53,6 +56,7 @@ export type IUmzugFactory = (sequelize: Sequelize) => Umzug.Umzug;
 export interface IConnectionService
 {
   authenticate(): Promise<void>;
+  getClient(): DbLayerClient;
 }
 
 export interface IDbLayer extends IConnectionService, IMigrationService

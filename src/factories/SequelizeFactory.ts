@@ -21,24 +21,11 @@ export class SequelizeFactory
 
   private static getFullDefaultOptions(creds: IDbAuthConfig, dialect: DialectTypes): Options
   {
-    return SequelizeFactory.combineOptions(sequelizeDefaultOptions.get(dialect)!, creds);
+    return SequelizeFactory._combineOptions(sequelizeDefaultOptions.get(dialect)!, creds);
   }
 
-  private static combineOptions(opts: Options, creds: IDbAuthConfig): Options
+  private static _combineOptions(opts: Options, creds: IDbAuthConfig): Options
   {
     return Object.assign({ }, opts, creds);
-  }
-
-  public static async test(): Promise<Sequelize>
-  {
-    const sq = await new Sequelize({
-      username: 'dev',
-      password: 'dev',
-      database: 'dev',
-      host: 'localhost',
-      port: 5432,
-      dialect: 'postgres'
-    });
-    return sq;
   }
 }

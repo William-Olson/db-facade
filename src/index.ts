@@ -25,6 +25,6 @@ export { UmzugFactory } from './factories/UmzugFactory';
 
 /// Services
 
-export { ConnectionService } from './services/ConnectionService';
+export { SequelizeConnectionService } from './providers/sequelize/SequelizeConnectionService';
 export { DbLayer } from './DbLayer';
 export { MigrationService } from './services/MigrationService';

@@ -1,13 +1,17 @@
 import { Sequelize } from 'sequelize';
-import { IConnectionService } from '../types';
+import { IConnectionService } from '../../types';
 
-export class ConnectionService implements IConnectionService
+export class SequelizeConnectionService implements IConnectionService
 {
   private _sequelize: Sequelize;
 
   constructor(sequelizeInstance: Sequelize)
   {
     this._sequelize = sequelizeInstance;
+  }
+
+  getClient<T>(): T {
+    return this._sequelize as unknown as T;
   }
 
   get sequelize(): Sequelize
