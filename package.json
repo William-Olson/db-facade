@@ -4,7 +4,7 @@
   "description": "Thin abstraction layer for sequelize.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "compile": "npm run clean && tsc -p .",
     "clean": "rm -rf ./dist",
