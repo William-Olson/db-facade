@@ -14,7 +14,6 @@ npm i --save umzug sequelize db-facade
 
 ```TypeScript
 import path from 'path';
-import { Sequelize } from 'sequelize';
 import { DbLayer, DbLayerFactory, DialectTypes } from 'db-facade';
 
 (async function() {
@@ -54,6 +53,7 @@ await dbLayer.runMigrations();
 Pass an initialization function for loading up all your models.
 
 ```TypeScript
+import { Sequelize } from 'sequelize';
 import User from '../models/User';
 
 // ...
