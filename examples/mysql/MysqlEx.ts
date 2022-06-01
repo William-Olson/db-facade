@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { DbLayer, DbLayerFactory, DialectTypes } from '../../src';
+import { DbLayer, DbLayerFactory, DialectTypes } from '../../dist';
 import User from '../test-models/User';
 
 // TypeScript Migrations Example

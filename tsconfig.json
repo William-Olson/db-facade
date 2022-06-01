@@ -4,6 +4,7 @@
     "module": "commonjs",
     "outDir": "./dist",
     "sourceRoot": "./src",
+    "rootDir": "./src",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -21,5 +22,17 @@
     "inlineSources": true,
     "strictFunctionTypes": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "files": [
+    "src/index.ts",
+    "src/DbLayer.ts",
+    "src/types/index.ts",
+    "src/factories/DbLayerFactory.ts",
+    "src/factories/SequelizeFactory.ts",
+    "src/factories/UmzugFactory.ts",
+    "src/providers/knex/KnexConnectionService.ts",
+    "src/providers/knex/MigrationStorage.ts",
+    "src/providers/sequelize/SequelizeConnectionService.ts",
+    "src/services/MigrationService.ts",
+  ]
 }

@@ -1,6 +1,6 @@
 import { Options, Sequelize } from "sequelize";
 import Umzug from "umzug";
-import { ConnectionService } from "../services/ConnectionService";
+import { SequelizeConnectionService } from "../providers/sequelize/SequelizeConnectionService";
 import { DbLayer } from "../DbLayer";
 import { MigrationService } from "../services/MigrationService";
 import { IDbLayerConfig } from "../types";
@@ -17,7 +17,7 @@ export class DbLayerFactory
     );
     config.migrationOptions.sequelize = sequelize;
 
-    const connection: ConnectionService = new ConnectionService(sequelize);
+    const connection: SequelizeConnectionService = new SequelizeConnectionService(sequelize);
     const migrator: Umzug.Umzug = UmzugFactory.newInstance(config.migrationOptions);
     const migrationService = new MigrationService(migrator);
     return new DbLayer(connection, migrationService);
@@ -26,7 +26,7 @@ export class DbLayerFactory
   public static withDirectOptions(sequelizeOptions: Options, umzugOptions: Umzug.UmzugOptions): DbLayer
   {
     const sequelize: Sequelize = SequelizeFactory.withDirectOptions(sequelizeOptions);
-    const connection: ConnectionService = new ConnectionService(sequelize);
+    const connection: SequelizeConnectionService = new SequelizeConnectionService(sequelize);
     const migrator: Umzug.Umzug = UmzugFactory.withDirectOptions(umzugOptions);
     const migrationService = new MigrationService(migrator);
     return new DbLayer(connection, migrationService);
