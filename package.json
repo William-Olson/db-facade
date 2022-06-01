@@ -1,6 +1,6 @@
 {
   "name": "db-facade",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Thin abstraction layer for sequelize.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "willko747@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/William-Olson/db-facade.git"
+  },
   "license": "ISC",
   "peerDependencies": {
     "sequelize": ">= 6.1.0",
