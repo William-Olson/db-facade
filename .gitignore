@@ -7,3 +7,5 @@ node_modules/
 examples/dist/
 examples/test-mysql
 examples/test-postgres
+
+package-lock.json
