@@ -1,30 +1,32 @@
 import { Sequelize, DataTypes } from "sequelize";
 import { IMigrationConfig, IMigrationDefinition } from '../types';
 import * as path from 'path';
-import Umzug, { UmzugOptions } from 'umzug';
+import type { UmzugOptions, Migration, MigrationOptions, SequelizeStorageOptions } from 'umzug';
+import umzug from 'umzug';
+
 
 export class UmzugFactory
 {
-  public static newInstance(options: IMigrationConfig): Umzug.Umzug
+  public static newInstance(options: IMigrationConfig): umzug.Umzug
   {
     if (!options.sequelize) {
       throw new Error('Missing sequelize instance in IMigrationOptions. ' +
                       'Unable to create Umzug instance.');
     }
-    return new Umzug(UmzugFactory.getFullDefaultOptions(options));
+    return new umzug(UmzugFactory.getFullDefaultOptions(options));
   }
 
-  public static withDirectOptions(umzugOptions: Umzug.UmzugOptions): Umzug.Umzug
+  public static withDirectOptions(umzugOptions: UmzugOptions): umzug.Umzug
   {
-    return new Umzug(umzugOptions);
+    return new umzug(umzugOptions);
   }
 
   public static getFullDefaultOptions(opts: IMigrationConfig): UmzugOptions
   {
-    let migrationOptions: Umzug.Migration[] | Umzug.MigrationOptions = {
+    let migrationOptions: Migration[] | MigrationOptions = {
       params: [ opts.sequelize?.getQueryInterface(), Sequelize ],
       path: opts.migrationsPath || path.join(process.cwd(), 'migrations')
-    } as Umzug.MigrationOptions;
+    } as MigrationOptions;
 
     if (opts.migrations && opts.migrations.length) {
       migrationOptions = opts.migrations.map((migration: IMigrationDefinition) => {
@@ -38,7 +40,7 @@ export class UmzugFactory
       });
     }
 
-    const sequelizeOptions: Partial<Umzug.SequelizeStorageOptions> = {
+    const sequelizeOptions: Partial<SequelizeStorageOptions> = {
       sequelize: opts.sequelize!,
       columnName: 'name',
       tableName: opts.migrationTableName || '_Migrations_',

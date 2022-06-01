@@ -7,6 +7,7 @@ export interface IDbLayerConfig {
   dialectType: DialectTypes;
   databaseCredentials: IDbAuthConfig;
   migrationOptions: IMigrationConfig;
+  logging?: boolean;
 }
 
 export enum DialectTypes {

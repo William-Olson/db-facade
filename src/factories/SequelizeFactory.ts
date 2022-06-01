@@ -7,10 +7,11 @@ import {
 
 export class SequelizeFactory
 {
-  public static newInstance(creds: IDbAuthConfig, dialect: DialectTypes): Sequelize
+
+  public static newInstance(creds: IDbAuthConfig, dialect: DialectTypes, opts: Options = {}): Sequelize
   {
     return new Sequelize(
-      SequelizeFactory.getFullDefaultOptions(creds, dialect)
+      SequelizeFactory.getFullDefaultOptions(creds, dialect, opts)
     );
   }
 
@@ -19,12 +20,18 @@ export class SequelizeFactory
     return new Sequelize(sequelizeOptions);
   }
 
-  private static getFullDefaultOptions(creds: IDbAuthConfig, dialect: DialectTypes): Options
+  private static getFullDefaultOptions(creds: IDbAuthConfig, dialect: DialectTypes, overrides: Partial<Options>): Options
   {
-    return SequelizeFactory._combineOptions(sequelizeDefaultOptions.get(dialect)!, creds);
+    const opts: Options = this._combineOptions(sequelizeDefaultOptions.get(dialect)!, overrides);
+    return SequelizeFactory._applyCredsToOptions(opts, creds);
   }
 
-  private static _combineOptions(opts: Options, creds: IDbAuthConfig): Options
+  private static _combineOptions(...opts: Options[]): Options
+  {
+    return Object.assign({ }, ...opts);
+  }
+
+  private static _applyCredsToOptions(opts: Options, creds: IDbAuthConfig): Options
   {
     return Object.assign({ }, opts, creds);
   }

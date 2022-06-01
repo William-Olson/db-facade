@@ -6,6 +6,7 @@ export {
     IDbAuthConfig,
     IMigrationConfig,
     IMigration,
+    IMigrationDefinition,
     IMigrationService,
     IModelInitializerFn,
     IDbLayer,

@@ -11,9 +11,12 @@ export class DbLayerFactory
 {
   public static newDbLayer(config: IDbLayerConfig): DbLayer
   {
+    const sequelizeOptions: Options = {};
+    sequelizeOptions.logging = config.logging;
     const sequelize: Sequelize = SequelizeFactory.newInstance(
       config.databaseCredentials,
-      config.dialectType
+      config.dialectType,
+      sequelizeOptions
     );
     config.migrationOptions.sequelize = sequelize;
 
