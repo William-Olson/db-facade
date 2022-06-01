@@ -1,9 +1,9 @@
-## db-layer
+## db-facade
 
 Boiler-plate code and thin wrapper for sequelize and umzug packages.
 
 ```
-npm i --save umzug sequelize db-layer
+npm i --save umzug sequelize db-facade
 ```
 
 
