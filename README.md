@@ -1,36 +1,21 @@
 ## db-facade
 
-Boiler-plate code and thin wrapper for sequelize and umzug packages.
+[![npm](https://img.shields.io/npm/v/db-facade?logo=npm)](https://www.npmjs.com/package/db-facade)
+
+Boiler-plate code and thin wrapper for [sequelize](https://www.npmjs.com/package/sequelize) and [umzug](https://www.npmjs.com/package/umzug) packages.
 
 ```
 npm i --save umzug sequelize db-facade
 ```
 
+---
 
-### Start a database
-
-We can quickly use docker to stand up a new postgres db from scratch for testing with.
-
-```
-docker run -it --name pg-db \
-    -e POSTGRES_USER=tmp_user \
-    -e POSTGRES_PASSWORD=tmp_pass \
-    -e POSTGRES_DB=tmp_db \
-    -p 5432:5432 \
-    -d \
-    postgres:9.5
-```
-
-
-### Connect in the code
+### Connect
 
 ```TypeScript
 import path from 'path';
 import { Sequelize } from 'sequelize';
-import { DbLayer, DbLayerFactory, DialectTypes } from '../../dist';
-import User from '../test-models/User';
-
-const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
+import { DbLayer, DbLayerFactory, DialectTypes } from 'db-facade';
 
 (async function() {
 
@@ -47,9 +32,9 @@ const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
     }
   });
 
-  info('authenticating db . . .');
+  console.info('authenticating db . . .');
   await dbLayer.authenticate();
-  info('Success!');
+  console.info('Success!');
   
 }());
 ```
@@ -60,8 +45,7 @@ const info = (...items: any[]) => console.info('[PostgresEx]', ...items);
 Run the umzug migrations by simply calling `runMigrations()`.
 
 ```TypeScript
-  info('running migrations . . .');
-  await dbLayer.runMigrations();  
+await dbLayer.runMigrations();  
 ```
 
 
@@ -70,11 +54,14 @@ Run the umzug migrations by simply calling `runMigrations()`.
 Pass an initialization function for loading up all your models.
 
 ```TypeScript
-  info('initializing models . . .');
-  await dbLayer.initialize(async (sequelize: Sequelize) => {
-    // ensure User.init is invoked in load implementation
-    User.load(sequelize);
-  });
+import User from '../models/User';
+
+// ...
+
+await dbLayer.initialize(async (sequelize: Sequelize) => {
+  // ensure User.init is invoked in load implementation
+  User.load(sequelize);
+});
 ```
 
 Models are used like normal after initialization.
@@ -84,7 +71,25 @@ import User from '../models/User';
 
 // ...
 
-    // ...
-    return await User.findOne({ where: { id } });
+await User.findOne({ where: { id } });
 ```
 
+
+
+---
+
+### Start up a database for testing
+
+You can use docker to stand up a new postgres db from scratch for testing with.
+
+```
+docker run -it --name pg-db \
+    -e POSTGRES_USER=tmp_user \
+    -e POSTGRES_PASSWORD=tmp_pass \
+    -e POSTGRES_DB=tmp_db \
+    -p 5432:5432 \
+    -d \
+    postgres:9.5
+```
+
+You can kill the container with `docker kill pg-db` once your done.
