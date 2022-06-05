@@ -5,7 +5,7 @@
 Boiler-plate code and thin wrapper for [sequelize](https://www.npmjs.com/package/sequelize) and [umzug](https://www.npmjs.com/package/umzug) packages.
 
 ```
-npm i --save umzug sequelize db-facade
+npm i --save db-facade sequelize umzug
 ```
 
 ---
