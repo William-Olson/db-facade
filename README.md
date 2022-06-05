@@ -39,7 +39,7 @@ import { DbLayer, DbLayerFactory, DialectTypes } from 'db-facade';
 ```
 
 
-### Run the Migrations
+### Run Migrations
 
 Run the umzug migrations by simply calling `runMigrations()`.
 
@@ -48,19 +48,26 @@ await dbLayer.runMigrations();
 ```
 
 
-### Initialize the Models
+### Initialize Models
 
 Pass an initialization function for loading up all your models.
 
 ```TypeScript
 import { Sequelize } from 'sequelize';
 import User from '../models/User';
+import Post from '../models/Post';
 
 // ...
 
 await dbLayer.initialize(async (sequelize: Sequelize) => {
-  // ensure User.init is invoked in load implementation
-  User.load(sequelize);
+  User.init({ /* ... */ });
+  Post.init({ /* ... */ });
+
+  User.hasMany(Post, {
+    sourceKey: 'id',
+    foreignKey: 'creatorId'
+  });
+  Post.belongsTo(User, { targetKey: 'id' });
 });
 ```
 
@@ -78,18 +85,6 @@ await User.findOne({ where: { id } });
 
 ---
 
-### Start up a database for testing
+### Examples
 
-You can use docker to stand up a new postgres db from scratch for testing with.
-
-```
-docker run -it --name pg-db \
-    -e POSTGRES_USER=tmp_user \
-    -e POSTGRES_PASSWORD=tmp_pass \
-    -e POSTGRES_DB=tmp_db \
-    -p 5432:5432 \
-    -d \
-    postgres:9.5
-```
-
-You can kill the container with `docker kill pg-db` once your done.
+See [here](./examples/) for examples using other dialects.
