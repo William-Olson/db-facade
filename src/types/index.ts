@@ -1,4 +1,3 @@
-import Knex from 'knex';
 import { Options, Sequelize, QueryInterface } from 'sequelize';
 
 import Umzug from 'umzug';
@@ -26,7 +25,7 @@ export interface IDbAuthConfig {
   port?: number;
 }
 
-export type DbLayerClient = Sequelize | Knex;
+export type DbLayerClient = Sequelize;
 
 export interface IMigrationConfig {
   sequelize?: Sequelize;
