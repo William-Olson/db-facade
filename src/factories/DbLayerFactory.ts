@@ -13,11 +13,23 @@ export class DbLayerFactory
   {
     const sequelizeOptions: Options = {};
     sequelizeOptions.logging = config.logging;
-    const sequelize: Sequelize = SequelizeFactory.newInstance(
-      config.databaseCredentials,
-      config.dialectType,
-      sequelizeOptions
-    );
+    let sequelize: Sequelize | undefined;
+    if (config.dbConnectionString) {
+      sequelize = SequelizeFactory.withUrl(
+        config.dbConnectionString,
+        config.sequelizeOptions
+      );
+    }
+    else {
+      if (!config.databaseCredentials || !config.dialectType) {
+        throw new Error("Bad config, credentials & dialect options incomplete");
+      }
+      sequelize = SequelizeFactory.newInstance(
+        config.databaseCredentials,
+        config.dialectType,
+        sequelizeOptions
+      );
+    }
     config.migrationOptions.sequelize = sequelize;
 
     const connection: SequelizeConnectionService = new SequelizeConnectionService(sequelize);

@@ -15,6 +15,19 @@ export class SequelizeFactory
     );
   }
 
+  public static withUrl(connectionUrl: string, opts?: Options): Sequelize
+  {
+    if (!opts) {
+      return new Sequelize(connectionUrl);
+    }
+    return new Sequelize(connectionUrl, opts);
+  }
+
+  public static withUrlAndDefaults(connectionUrl: string, dialect: DialectTypes, opts?: Options): Sequelize
+  {
+    return new Sequelize(connectionUrl, this.getFullDefaultOptions({}, dialect, opts || {}));
+  }
+
   public static withDirectOptions(sequelizeOptions: Options): Sequelize
   {
     return new Sequelize(sequelizeOptions);

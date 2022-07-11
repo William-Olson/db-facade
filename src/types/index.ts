@@ -3,10 +3,12 @@ import { Options, Sequelize, QueryInterface } from 'sequelize';
 import Umzug from 'umzug';
 
 export interface IDbLayerConfig {
-  dialectType: DialectTypes;
-  databaseCredentials: IDbAuthConfig;
+  dialectType?: DialectTypes;
+  databaseCredentials?: IDbAuthConfig;
+  dbConnectionString?: string;
   migrationOptions: IMigrationConfig;
   logging?: boolean;
+  sequelizeOptions?: Options;
 }
 
 export enum DialectTypes {
