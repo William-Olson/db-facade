@@ -12,11 +12,13 @@ export interface IDbLayerConfig {
 }
 
 export enum DialectTypes {
-  POSTGRES,
-  MYSQL,
-  MARIADB,
-  SQLITE,
-  MSSQL,
+  POSTGRES = 'postgres',
+  MYSQL = 'mysql',
+  MARIADB = 'mariadb',
+  SQLITE = 'sqlite',
+  MSSQL = 'mssql',
+  // DB2 = 'db2',
+  // SNOWFLAKE = 'snowflake'
 }
 
 export interface IDbAuthConfig {
