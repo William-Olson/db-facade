@@ -13,7 +13,7 @@ if (process.argv.length < 3) {
 }
 const migrationName = `${process.argv[2]}`.replace(/[;&|`$\!<>]/gim, '-');
 
-const withPadding = (s) => `${s}`.padStart(2, '0')
+const withPadding = (s) => `${s}`.padStart(2, '0');
 const titelizeBy = (str, c) => str.split(c).map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join('');
 const titelizeSplits = (str, arr) => arr.reduce((accStr, splitChar) => titelizeBy(accStr, splitChar), str);
 

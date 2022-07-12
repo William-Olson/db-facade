@@ -63,7 +63,7 @@ const info = (...items: any[]) => console.info('[MysqlExApp]', ...items);
     firstName: 'Test',
     lastName: 'User',
     type: 1,
-  })
+  });
 
   info('Logging users . . .');
   console.log(
