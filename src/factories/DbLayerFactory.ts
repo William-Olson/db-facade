@@ -21,12 +21,9 @@ export class DbLayerFactory
       );
     }
     else {
-      if (!config.databaseCredentials || (!config.dialectType && config.dialectType !== 0)) {
-        throw new Error("Bad config, credentials & dialect options incomplete");
-      }
       sequelize = SequelizeFactory.newInstance(
-        config.databaseCredentials,
-        config.dialectType,
+        config.databaseCredentials!,
+        config.dialectType!,
         sequelizeOptions
       );
     }
